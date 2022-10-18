@@ -48,7 +48,7 @@ ACW_THRESH_CORR_A = 3              # Min number of letter to apply correction to
 ACW_THRESH_CORR_B = 0.005          # Percentage of correction for each character in the acw thresholds
 EXTIMATE_ACW_THRS = False          # If True, ACW_THRESH_MAX and _MIN are estimated on the current document
 USE_OCR = False                    # use OCR engine
-ALLIGNMENT_MODE = 1                # 0=MiM - 1=Forward 
+ALLIGNMENT_MODE = 0                # 0=MiM - 1=Forward 
 ORIGINAL = False                    # Test the original IGS method
 
 

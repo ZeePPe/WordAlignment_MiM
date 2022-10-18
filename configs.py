@@ -5,3 +5,6 @@ OUT_MIM_FILENAME = "all_align.als"
 
 OUT_WORDS_FOLDER = "out_words"
 
+TIME_BASEFOLDER = "time"
+TIME_WORDCORRECTION_FILENAME = "align_correction.txt"
+

@@ -24,7 +24,7 @@ def crop_all_words(aligns, dst_folder="out"):
                 word_filename = doc_folder + "_" + line_filename.split(".")[0] + "_" + str(inline_pos).zfill(2) + "_" + trans + "." + line_filename.split(".")[-1]
 
                 word_img = line_img[: , box[0]:box[1]]
-                cv2.imwrite(os.path.join(OUT_FOLDER, word_filename), word_img)
+                cv2.imwrite(os.path.join(dst_folder, word_filename), word_img)
 
                 inline_pos += 1
 
