@@ -8,7 +8,7 @@ Il metodo permette di allineare la trascrizione di una righa di testo alle relat
 
 ## Eseguire l'allineamento
 
-1. Lancia il file alignment.py per effettuare l'allineamento e ottenere il file pickle ```"all_align.als"```
+1. Lancia il file ```alignment.py``` per effettuare l'allineamento e ottenere il file pickle ```"all_align.als"```. All'interno del file si possono settare  parametri per il processo.
 
 2. Puoi correggere le uscite dell'algoritmo di allineamento lanciando il file ```"correction_tool.py"```
    il tool visualizzerà tutte le parole allineate una alla volta. Con il tasto INVIO si può passare alla prossima parola.
