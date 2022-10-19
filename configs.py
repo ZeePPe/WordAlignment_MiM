@@ -11,3 +11,6 @@ TIME_WORDCORRECTION_FILENAME = "time_align_correction.txt"
 PERFORMANCE_BASEFOLDER = "performance"
 PERFORMANCE_FILENAME = "performance.txt"
 
+#reference height
+H = 115
+

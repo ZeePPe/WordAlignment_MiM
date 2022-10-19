@@ -11,7 +11,8 @@ ALIGNMENT_FILE = os.path.join(configs.OUT_MIM_FOLDER, configs.OUT_MIM_FILENAME)
 OUT_FOLDER = configs.OUT_WORDS_FOLDER
 LINE_FOLDER = configs.LINE_FOLDER
 
-H = 115
+H = configs.H
+
 
 def correct_aligns(aligns, outfile="out"):
     for doc_folder, all_lines in aligns.items():
