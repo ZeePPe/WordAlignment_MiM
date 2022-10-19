@@ -17,7 +17,7 @@ def crop_all_words(aligns, dst_folder="out"):
     for doc_folder, all_lines in tqdm(aligns.items()):
         for line_filename, (boxes, transcriptions) in all_lines.items():
             # leggi immagine
-            line_img = cv2.imread(os.path.join(LINE_FOLDER, doc_folder, line_filename))
+            line_img = cv2.imread(os.path.join(LINE_FOLDER, doc_folder, line_filename), cv2.IMREAD_GRAYSCALE)
              
             inline_pos = 0
             for box, trans in zip(boxes, transcriptions):

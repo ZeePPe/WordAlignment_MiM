@@ -14,7 +14,12 @@ ALLINEAMENTO
       con un click con il tasto sinistro si imposta un nuovo confine di segmentazione sinistro
       con un click con il tasto destro si imposta un nuovo confine di segmentazione destro
     
-   alla fine il tool correffe il file di allineamento "all_aligns.als"
+   alla fine il tool corregge il file di allineamento "all_aligns.als"
    e genrea nella cartella time un file dove viene riportato il tempo totale impiegato alla correzione
+
+   Il processo misura anche le performance dell'allineamento:
+   verrà salvato un file nella cartella "Performance"
+   dove sono riportati il numero totale di allineamenti e il numero di allineamenti che non hanno necessitato di una correzione
+
 
 3- lancia il file crop_all_words.py per generare tutte le immagini delle parole ottenute
