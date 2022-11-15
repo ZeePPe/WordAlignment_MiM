@@ -1,10 +1,11 @@
 import os, shutil
 import re
+import configs
 
-N_OF_PAGES = 9
+N_OF_PAGES = 1
 BLACLIST_CHARACTER = ".,:;!?/\"'"
 
-GT_FOLDER = "test\GT"
+GT_FOLDER = configs.GT_FOLDER
 
 n_of_words = 0
 n_of_lines = 0

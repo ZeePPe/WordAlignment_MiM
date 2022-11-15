@@ -33,14 +33,14 @@ DOCUMENTS_FOLDER = configs.LINE_FOLDER
 GT_FOLDER = configs.GT_FOLDER
 OUT_FOLDER = configs.OUT_MIM_FOLDER
 OUT_FILE = os.path.join(OUT_FOLDER, configs.OUT_MIM_FILENAME)
-SAVE_OUT_IMG = True
+SAVE_OUT_IMG = False # save example of alignments in images
 
 ### PARAMETERS
 THRESH_FIRST_SEGMENTATION = 0      # number of black pixel in the projection for the first word segmentation
-MINIMUM_BB_SIZE = 5               # Minumun length for a bb
+MINIMUM_BB_SIZE = 15#5              # Minumun length for a bb
 BLACLIST_CHARACTER = ".,:;!?/\"'"  # List of character to rmeove from the GT string of the row
 CLEAN_TRANSCRIPT = True            # If True, the transcript of all words are "clened" from characters in blacklist
-PARENTESIS = True                  # If True, in the consistency check are not considered letters in parentesis () 
+PARENTESIS = False                 # If True, in the consistency check are not considered letters in parentesis () 
 FUSE_BB = True                     # If true, the bb are fused together while the num ob bb is less then equeal to the number of words in transcription
 ACW_THRESH_MAX = 10                # threshold for max values for the consistency check
 ACW_THRESH_MIN = 10                # threshold for min values for the consistency check
@@ -49,7 +49,7 @@ ACW_THRESH_CORR_B = 0.005          # Percentage of correction for each character
 EXTIMATE_ACW_THRS = False          # If True, ACW_THRESH_MAX and _MIN are estimated on the current document
 USE_OCR = False                    # use OCR engine
 ALLIGNMENT_MODE = 1                # 0=MiM - 1=Forward 
-ORIGINAL = False                    # Test the original IGS method
+ORIGINAL = False                   # Test the original IGS method
 
 
 ### CONSTANTS
@@ -584,6 +584,35 @@ def mim_allignment_original(bb_words_list, line_gt, acw, acw_max_thr=ACW_THRESH_
     
     return left_allignments_bb + right_allignments_bb, left_allignments_word + right_allignments_word
 
+def _overlap(box1, box2):
+    if box2[0] < box1[1]:
+        return True
+    return False
+
+def handle_overlapped_box(aligns):
+    """
+    correct the overlapped alignment computed by the MiM algotithm
+    """
+    for doc_id in aligns:
+        lines_dic = aligns[doc_id]
+        for line_id in lines_dic:
+            boxes, transcrips = lines_dic[line_id]
+
+            for ind in range(len(boxes)-1):
+                box = boxes[ind]
+                box_next = boxes[ind+1]
+
+                trans = transcrips[ind]
+                trans_next = transcrips[ind+1]
+
+                if _overlap(box, box_next):
+                    box1 = [box[0], box_next[0]]
+                    box2 = [box_next[0]+1, box_next[1]]
+                    boxes[ind] = box1
+                    boxes[ind+1] = box2
+
+                    tr1 = trans.removesuffix(trans_next).rstrip()
+                    transcrips[ind] = tr1
 
 def assign_last_bb(bb_words_list, left_allignments_bb, right_allignments_bb):
     """
@@ -673,6 +702,9 @@ if __name__ == "__main__":
 
         all_alignment[doc_folder_name] = line_alignments
 
+    # correct overlapped alignments
+    handle_overlapped_box(all_alignment)
+    
     # save aligments in file
     save_alignments(all_alignment, OUT_FILE)
 

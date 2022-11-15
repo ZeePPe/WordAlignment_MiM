@@ -11,7 +11,10 @@ Il metodo permette di allineare la trascrizione di una righa di testo alle relat
 1. Lancia il file ```alignment.py``` per effettuare l'allineamento e ottenere il file pickle ```"all_align.als"```. All'interno del file si possono settare  parametri per il processo.
 
 2. Puoi correggere le uscite dell'algoritmo di allineamento lanciando il file ```"correction_tool.py"```
-   il tool visualizzerà tutte le parole allineate una alla volta. Con il tasto INVIO si può passare alla prossima parola.
+   il tool visualizzerà tutte le parole allineate una alla volta. 
+   Con il tasto INVIO si può passare alla prossima parola.
+   Con il tasto BACKSPACE torni alla parola precedente (della stessa riga)
+   COn il tasto s salvi lo stato (dovresti salvare anche i file di performance TODO)
    Per correggere un errore di segmentazione si può utilizzare il mouse:
       con un click con il tasto sinistro si imposta un nuovo confine di segmentazione sinistro
       con un click con il tasto destro si imposta un nuovo confine di segmentazione destro
