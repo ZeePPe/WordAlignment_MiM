@@ -37,7 +37,7 @@ SAVE_OUT_IMG = False # save example of alignments in images
 
 ### PARAMETERS
 THRESH_FIRST_SEGMENTATION = 0      # number of black pixel in the projection for the first word segmentation
-MINIMUM_BB_SIZE = 2#5              # Minumun length for a bb
+MINIMUM_BB_SIZE = 3#5              # Minumun length for a bb
 BLACLIST_CHARACTER = ".,:;!?/\"'"  # List of character to rmeove from the GT string of the row
 CLEAN_TRANSCRIPT = True            # If True, the transcript of all words are "clened" from characters in blacklist
 PARENTESIS = False                 # If True, in the consistency check are not considered letters in parentesis () 

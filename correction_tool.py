@@ -1,5 +1,6 @@
 import os
 import cv2
+from PIL import Image, ImageDraw,ImageFont
 import copy
 from utils import load_aligments, save_alignments
 import numpy as np
@@ -13,8 +14,15 @@ LINE_FOLDER = configs.LINE_FOLDER
 
 H = configs.H
 
+
+# all constants
+
 TEST_PREV_LINE = -25
 TEST_PREV_DOC  = -25
+
+FONT_REGULAR_PIL = ImageFont.truetype('assets/font/AlteHaasGroteskRegular.ttf', 25)
+FONT_BOLD_PIL = ImageFont.truetype('assets/font/AlteHaasGroteskBold.ttf', 30)
+FONT_CV = cv2.FONT_HERSHEY_SIMPLEX
 
 
 def correct_aligns(aligns, outfile="out"):
@@ -80,7 +88,7 @@ def correct_aligns(aligns, outfile="out"):
 
                         params[1] = new_end
                 
-                print(f"{box} {trans} -------{count}/{all_aligns}")
+                print(f"{box} {trans.ljust(15)}\t---| {count}/{all_aligns} |    \t..{os.path.join(doc_folder, line_filename)}")
 
                 #curr_img = line_img.copy()
                 curr_img = np.zeros((line_img.shape[0]+100, line_img.shape[1], line_img.shape[2]), dtype=np.uint8)
@@ -88,16 +96,32 @@ def correct_aligns(aligns, outfile="out"):
 
                 cv2.rectangle(curr_img,(box[0],1),(box[1],H),(0,255,0),1)
 
-                font = cv2.FONT_HERSHEY_SIMPLEX
-                cv2.putText(curr_img, trans, (box[0],line_img.shape[0]+40), font, 1, (128, 240, 128), 2) #box
-                cv2.putText(curr_img, trans, (10,line_img.shape[0]+90), font, 1, (255, 200, 200), 2) # bottom trans
+                #text under box
+                #cv2.putText(curr_img, trans, (box[0],line_img.shape[0]+40), FONT_CV, 1, (128, 240, 128), 2) #box
+                img = Image.new('RGB', (len(trans)*20, 40), color = (0, 0, 0))
+                d = ImageDraw.Draw(img)
+                d.text((0,0), trans, font=FONT_BOLD_PIL,  fill=(128, 240, 128))
+                img = np.asarray(img)
+                bottom_margin = 55
+                curr_img[curr_img.shape[0]-(40+bottom_margin):curr_img.shape[0]-bottom_margin,box[0]:box[0]+len(trans)*20, : ] = img
+               
+                # text bottom trans
+                #cv2.putText(curr_img, trans, (10,line_img.shape[0]+90), font, 1, (255, 200, 200), 2) 
+                img = Image.new('RGB', (len(trans)*25, 30), color = (0, 0, 0))
+                d = ImageDraw.Draw(img)
+                d.text((10,0), trans, font=FONT_REGULAR_PIL,  fill=(255,200,200))
+                img = np.asarray(img)
+                bottom_margin = 1
+                curr_img[curr_img.shape[0]-(30+bottom_margin):curr_img.shape[0]-bottom_margin,0:len(trans)*25, : ] = img
+
+                
                 # state of progression
                 str_curr_position =  f"{count}/{all_aligns}"
-                cv2.putText(curr_img, str_curr_position, (line_img.shape[1]-15*len(str_curr_position),line_img.shape[0]+90), font, 0.6, (255, 200, 200), 1)
+                cv2.putText(curr_img, str_curr_position, (line_img.shape[1]-15*len(str_curr_position),line_img.shape[0]+90), FONT_CV, 0.6, (255, 200, 200), 1)
                 
                 cv2.imshow('image', curr_img)
                 cv2.setMouseCallback('image', click_event, param=box)
-                key_pressed =cv2.waitKey(0)
+                key_pressed = cv2.waitKey(0)
                 
                 if key_pressed == 13:
                     #  ENTER
