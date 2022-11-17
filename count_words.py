@@ -2,7 +2,7 @@ import os, shutil
 import re
 import configs
 
-N_OF_PAGES = 1
+N_OF_PAGES = 15
 BLACLIST_CHARACTER = ".,:;!?/\"'"
 
 GT_FOLDER = configs.GT_FOLDER
@@ -28,4 +28,4 @@ for i in range(N_OF_PAGES):
     
     i += 1
 
-print(f"Documenti analizzati:{N_OF_PAGES}   -    righe:{n_of_lines}   parole:{n_of_words}")
+print(f"Documenti analizzati: {N_OF_PAGES}   -    righe: {n_of_lines}   parole: {n_of_words}")
