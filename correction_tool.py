@@ -103,7 +103,16 @@ def correct_aligns(aligns, outfile="out"):
                 d.text((0,0), trans, font=FONT_BOLD_PIL,  fill=(128, 240, 128))
                 img = np.asarray(img)
                 bottom_margin = 55
-                curr_img[curr_img.shape[0]-(40+bottom_margin):curr_img.shape[0]-bottom_margin,box[0]:box[0]+len(trans)*20, : ] = img
+                y_start = curr_img.shape[0]-(40+bottom_margin)
+                y_end = curr_img.shape[0]-bottom_margin
+                x_start = box[0]
+                x_end = box[0]+len(trans)*20
+                a = (x_end-x_start)
+                b = curr_img.shape[1]
+                if x_end >curr_img.shape[1]:
+                    x_end = curr_img.shape[1]
+                    
+                curr_img[y_start:y_end,x_start:x_end, : ] = img[:,:(x_end-x_start),:]
                
                 # text bottom trans
                 #cv2.putText(curr_img, trans, (10,line_img.shape[0]+90), font, 1, (255, 200, 200), 2) 
