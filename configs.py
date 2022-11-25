@@ -1,6 +1,6 @@
-LINE_FOLDER = "data\cristo\lines"
-GT_FOLDER = "data\cristo\GT" 
-OUT_MIM_FOLDER = "out\out_cristo"
+LINE_FOLDER = "data\lines"
+GT_FOLDER = "data\GT" 
+OUT_MIM_FOLDER = "out\out_align"
 OUT_MIM_FILENAME = "all_align.als"
 
 OUT_WORDS_FOLDER = "out_words"

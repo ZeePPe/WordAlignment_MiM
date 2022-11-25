@@ -10,11 +10,9 @@ from statistics import mean
 import cv2
 from skimage import io
 from skimage import draw
-from skimage import img_as_uint, img_as_ubyte
-from skimage.color import rgb2gray, rgba2rgb
+from skimage.color import rgb2gray
 from skimage.filters import sobel
 from skimage.filters import threshold_otsu
-from skimage.util import invert
 import pytesseract
 from difflib import SequenceMatcher
 from heapq import *
@@ -37,7 +35,7 @@ SAVE_OUT_IMG = False # save example of alignments in images
 
 ### PARAMETERS
 THRESH_FIRST_SEGMENTATION = 0      # number of black pixel in the projection for the first word segmentation
-MINIMUM_BB_SIZE = 3#5              # Minumun length for a bb
+MINIMUM_BB_SIZE = 5                # Minumun length for a bb
 BLACLIST_CHARACTER = ".,:;!?/\"'"  # List of character to rmeove from the GT string of the row
 CLEAN_TRANSCRIPT = True            # If True, the transcript of all words are "clened" from characters in blacklist
 PARENTESIS = False                 # If True, in the consistency check are not considered letters in parentesis () 
@@ -48,7 +46,7 @@ ACW_THRESH_CORR_A = 3              # Min number of letter to apply correction to
 ACW_THRESH_CORR_B = 0.005          # Percentage of correction for each character in the acw thresholds
 EXTIMATE_ACW_THRS = False          # If True, ACW_THRESH_MAX and _MIN are estimated on the current document
 USE_OCR = False                    # use OCR engine
-ALLIGNMENT_MODE = 0                # 0=MiM - 1=Forward 
+ALLIGNMENT_MODE = 1                # 0=MiM - 1=Forward 
 ORIGINAL = False                   # Test the original IGS method
 
 
@@ -639,7 +637,7 @@ def assign_last_bb(bb_words_list, left_allignments_bb, right_allignments_bb):
 if __name__ == "__main__":
     if os.path.exists(OUT_FOLDER):
         shutil.rmtree(OUT_FOLDER)
-    os.mkdir(OUT_FOLDER)
+    os.makedirs(OUT_FOLDER)
 
     all_alignment={}
 
